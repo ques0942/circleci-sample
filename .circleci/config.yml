@@ -6,4 +6,9 @@ jobs:
     steps:
       - checkout # check out the code in the project directory
       - run: ls
-      - run: java -jar /build/plantuml.jar -help
+      - run: java -jar /build/plantuml.jar ./**/*.puml
+      - run: git config user.email "ques0942@gmail.com"
+      - run: git config user.name "ques0942"
+      - run: git add -A
+      - run: git commit -m "[ci skip] build plantuml"
+      - run: git push origin ${CIRCLE_BRANCH}
