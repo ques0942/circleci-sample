@@ -12,3 +12,22 @@ jobs:
       - run: git add -A
       - run: git commit -m "[ci skip] build plantuml"
       - run: git push origin ${CIRCLE_BRANCH}
+  test_when:
+      docker:
+        - image: circleci/golang:1.13
+      parameters:
+        key:
+          type: string
+          default: ""
+      steps:
+        - run: echo <<parameters.key>>
+        - run: <<parameters.key>> = "test"
+        - run: echo <<parameters.key>>
+
+workflows:
+  workflow1:
+    jobs:
+      - build
+  workflow2:
+    jobs:
+      - test_when
